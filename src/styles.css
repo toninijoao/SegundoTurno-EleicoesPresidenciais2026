@@ -1,0 +1,299 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #f7f6f2;
+  color: #111;
+  font-family: 'Inter Tight', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stage {
+  width: 100%;
+  min-height: 100svh;
+  position: relative;
+  background: #f7f6f2;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  background: #f7f6f2;
+}
+
+/* ==================================================
+   CAMADAS E STACKING CONTEXT (REGRA CRÍTICA)
+   0: Background & Microtextura
+   2: Canvas 3D (Candidatos)
+   5: Nomes dos Candidatos
+   6: H1, Pergunta e Elementos de UI
+   ================================================== */
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: #f7f6f2;
+}
+
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.42;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.gl {
+  position: absolute !important;
+  inset: 0;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+/* ==================================================
+   H1 DOMINANTE EDITORIAL (PARTE SUPERIOR)
+   Fixo, Alto Contraste, Presença Dominante
+   ================================================== */
+
+.hero-header {
+  position: absolute;
+  top: 3.6svh;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.hero-title-sub {
+  display: block;
+  font-family: 'Inter Tight', system-ui, sans-serif;
+  font-size: clamp(0.72rem, 1.05vw, 1.15rem);
+  font-weight: 600;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: #525252;
+  line-height: 1.2;
+}
+
+.hero-title-main {
+  display: block;
+  font-family: 'Inter Tight', system-ui, sans-serif;
+  font-size: clamp(1.5rem, 2.7vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #111111;
+  line-height: 1.08;
+}
+
+/* ==================================================
+   PERGUNTA CENTRAL (ENTRE OS CANDIDATOS)
+   Fixa, Sem Reação ao Cursor, Respira no Centro
+   ================================================== */
+
+.hero-question {
+  position: absolute;
+  top: 36svh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.question-text {
+  font-family: 'Syne', 'Inter Tight', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 2.35vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #111;
+  white-space: nowrap;
+}
+
+.question-br {
+  display: block;
+}
+
+/* ==================================================
+   NOMES DOS CANDIDATOS (VOLTADOS AO NORMAL + CRESCIMENTO E BRILHO)
+   ================================================== */
+
+.hero-name-wrap {
+  position: absolute;
+  z-index: 5;
+  pointer-events: auto;
+  user-select: none;
+}
+
+.name-wrap-lula {
+  left: 9vw;
+  top: 64svh;
+}
+
+.name-wrap-flavio {
+  right: 9vw;
+  top: 64svh;
+  text-align: right;
+}
+
+.name {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  font-family: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.8rem, 6.8vw, 8rem);
+  line-height: .9;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), filter 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.name-wrap-lula .name {
+  transform-origin: left bottom;
+}
+
+.name-wrap-flavio .name {
+  transform-origin: right bottom;
+}
+
+.name::before {
+  content: attr(data-t);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  transition: text-shadow 280ms ease;
+}
+
+/* LULA: Cores e sombras originais */
+.name.lula {
+  background-image: linear-gradient(180deg, #e8283f, #c4122b 58%, #a50f26);
+}
+
+.name.lula::before {
+  color: #a50f26;
+  text-shadow: 1px 1px #a50f26, 2px 2px #96101f, 3px 3px #7d0a19, 4px 4px #6a0716;
+}
+
+/* FLÁVIO: Cores e sombras originais */
+.name.flavio {
+  background-image: linear-gradient(180deg, #e9c21a 0%, #9fb83a 22%, #2f9a52 52%, #0f7a38);
+}
+
+.name.flavio::before {
+  color: #0b5c2b;
+  text-shadow: 1px 1px #0b5c2b, 2px 2px #0a5227, 3px 3px #07431f, 4px 4px #05381a;
+}
+
+/* HOVER NO TEXTO: Ativado quando o mouse passa sobre o texto OU sobre a imagem do candidato */
+.name:hover,
+.stage.hover-lula .name.lula,
+.stage.hover-flavio .name.flavio {
+  transform: scale(1.06);
+}
+
+.name.lula:hover,
+.stage.hover-lula .name.lula {
+  filter: drop-shadow(0 0 18px rgba(232, 40, 63, 0.75)) brightness(1.15);
+}
+
+.name.lula:hover::before,
+.stage.hover-lula .name.lula::before {
+  text-shadow: 1px 1px #a50f26, 2px 2px #96101f, 3px 3px #7d0a19, 4px 4px #6a0716, 0 0 22px rgba(232, 40, 63, 0.55);
+}
+
+.name.flavio:hover,
+.stage.hover-flavio .name.flavio {
+  filter: drop-shadow(0 0 18px rgba(47, 154, 82, 0.75)) brightness(1.15);
+}
+
+.name.flavio:hover::before,
+.stage.hover-flavio .name.flavio::before {
+  text-shadow: 1px 1px #0b5c2b, 2px 2px #0a5227, 3px 3px #07431f, 4px 4px #05381a, 0 0 22px rgba(47, 154, 82, 0.55);
+}
+
+/* ==================================================
+   MICRO LABELS EDITORIAIS (CANTOS SUPERIORES)
+   ================================================== */
+
+.micro {
+  position: absolute;
+  z-index: 6;
+  font-size: 0.62rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #777;
+  pointer-events: none;
+  user-select: none;
+}
+
+.micro-tl {
+  top: 3.6svh;
+  left: 2.6vw;
+}
+
+.micro-tr {
+  top: 3.6svh;
+  right: 2.6vw;
+}
+
+/* ==================================================
+   RESPONSIVIDADE (MOBILE / TELAS MENORES)
+   ================================================== */
+
+@media (max-width: 760px) {
+  .hero-title-sub {
+    font-size: 0.68rem;
+    letter-spacing: 0.28em;
+  }
+  .hero-title-main {
+    font-size: 1.35rem;
+  }
+  .name-wrap-lula {
+    left: 6vw;
+    top: 58svh;
+  }
+  .name-wrap-flavio {
+    right: 6vw;
+    top: 76svh;
+  }
+  .name {
+    font-size: 15vw;
+  }
+  .hero-question {
+    top: 48svh;
+  }
+  .question-text {
+    font-size: 1.25rem;
+  }
+}
