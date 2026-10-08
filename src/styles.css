@@ -29,13 +29,7 @@ html, body {
   background: #f7f6f2;
 }
 
-/* ==================================================
-   CAMADAS E STACKING CONTEXT (REGRA CRÍTICA)
-   0: Background & Microtextura
-   2: Canvas 3D (Candidatos)
-   5: Nomes dos Candidatos
-   6: H1, Pergunta e Elementos de UI
-   ================================================== */
+
 
 .hero-bg {
   position: absolute;
@@ -106,11 +100,6 @@ html, body {
   color: #111111;
   line-height: 1.08;
 }
-
-/* ==================================================
-   PERGUNTA CENTRAL (ENTRE OS CANDIDATOS)
-   Fixa, Sem Reação ao Cursor, Respira no Centro
-   ================================================== */
 
 .hero-question {
   position: absolute;

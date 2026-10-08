@@ -40,15 +40,12 @@ export default function Hero() {
   return (
     <div className="stage" ref={root}>
       <section className="hero">
-        {/* Camada de fundo e microtextura (estritamente atrás dos candidatos) */}
         <div className="hero-bg">
           <div className="hero-noise" />
         </div>
 
-        {/* 3D Canvas com os candidatos Lula e Flávio (z-index: 2) */}
         <Stage3D rootRef={root} />
 
-        {/* H1 Dominante Editorial (Fixo, sem reação ao cursor) */}
         <header className="hero-header">
           <h1 className="hero-title">
             <span className="hero-title-sub">Segundo Turno das</span>
@@ -56,14 +53,12 @@ export default function Hero() {
           </h1>
         </header>
 
-        {/* Pergunta Central Tipográfica (Fixa no centro entre os dois candidatos) */}
         <div className="hero-question">
           <p className="question-text">
             Pra quem <span className="question-br">vai seu apoio?</span>
           </p>
         </div>
 
-        {/* Nomes dos Candidatos com Efeito de Crescimento e Brilho */}
         <div
           className="hero-name-wrap name-wrap-lula"
           onMouseEnter={() => { M.forceLula = true; inv.fn && inv.fn() }}
@@ -84,7 +79,6 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Marcadores editoriais discretos nos cantos superiores */}
         <div className="micro micro-tl">Brasil</div>
         <div className="micro micro-tr">2026</div>
       </section>
