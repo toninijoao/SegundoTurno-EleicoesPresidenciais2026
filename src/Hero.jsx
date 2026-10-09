@@ -60,21 +60,13 @@ export default function Hero() {
           </p>
         </div>
 
-        <div
-          className="hero-name-wrap name-wrap-lula"
-          onMouseEnter={() => { M.forceLula = true; inv.fn && inv.fn() }}
-          onMouseLeave={() => { M.forceLula = false; inv.fn && inv.fn() }}
-        >
+        <div className="hero-name-wrap name-wrap-lula">
           <div className="name lula" data-t="Lula">
             Lula
           </div>
         </div>
 
-        <div
-          className="hero-name-wrap name-wrap-flavio"
-          onMouseEnter={() => { M.forceFlavio = true; inv.fn && inv.fn() }}
-          onMouseLeave={() => { M.forceFlavio = false; inv.fn && inv.fn() }}
-        >
+        <div className="hero-name-wrap name-wrap-flavio">
           <div className="name flavio" data-t="Flávio">
             Flávio
           </div>

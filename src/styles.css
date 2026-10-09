@@ -163,6 +163,7 @@ html, body {
 }
 
 .name {
+  --tilt: perspective(900px) rotateX(7deg) rotateY(0deg);
   position: relative;
   isolation: isolate;
   display: inline-block;
@@ -177,14 +178,17 @@ html, body {
   background-clip: text;
   cursor: pointer;
   pointer-events: auto;
+  transform: var(--tilt);
   transition: transform 120ms ease-out, filter 120ms ease-out;
 }
 
 .name-wrap-lula .name {
+  --tilt: perspective(900px) rotateX(7deg) rotateY(9deg);
   transform-origin: left bottom;
 }
 
 .name-wrap-flavio .name {
+  --tilt: perspective(900px) rotateX(7deg) rotateY(-9deg);
   transform-origin: right bottom;
 }
 
@@ -194,51 +198,103 @@ html, body {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  transition: text-shadow 120ms ease-out;
+  transition: text-shadow 160ms ease-out;
+}
+
+.name::after {
+  content: attr(data-t);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  color: transparent;
+  -webkit-text-stroke: 0.014em rgba(255, 255, 255, 0.5);
+  transform: translate(-0.006em, -0.008em);
+  pointer-events: none;
 }
 
 .name.lula {
-  background-image: linear-gradient(180deg, #e8283f, #c4122b 58%, #a50f26);
+  background-image: linear-gradient(180deg, #ff4a5e 0%, #e8283f 28%, #c4122b 62%, #a50f26 100%);
+  --ext-short:
+    0.010em 0.012em 0 #9f0e25,
+    0.020em 0.023em 0 #8e0c20,
+    0.030em 0.035em 0 #7d0b1c,
+    0.040em 0.046em 0 #6c0918;
+  --ext-full:
+    0.0075em 0.0086em 0 #9f0e25,
+    0.0150em 0.0172em 0 #9a0e23,
+    0.0225em 0.0259em 0 #940d22,
+    0.0300em 0.0345em 0 #8e0c20,
+    0.0375em 0.0431em 0 #890c1f,
+    0.0450em 0.0517em 0 #830b1e,
+    0.0525em 0.0604em 0 #7d0b1c,
+    0.0600em 0.0690em 0 #780a1b,
+    0.0675em 0.0776em 0 #72091a,
+    0.0750em 0.0862em 0 #6c0918,
+    0.0825em 0.0949em 0 #660817,
+    0.0900em 0.1035em 0 #610816,
+    0.0975em 0.1121em 0 #5b0714,
+    0.1050em 0.1207em 0 #550613,
+    0.1125em 0.1294em 0 #500611,
+    0.1200em 0.1380em 0 #4a0510;
+  --floor: 0.14em 0.3em 0.22em rgba(40, 0, 8, 0.3);
 }
 
 .name.lula::before {
   color: #a50f26;
-  text-shadow: 1px 1px #a50f26, 2px 2px #96101f, 3px 3px #7d0a19, 4px 4px #6a0716;
+  text-shadow: var(--ext-short), var(--floor);
+}
+
+.name.lula:hover::before {
+  text-shadow: var(--ext-full), var(--floor);
 }
 
 .name.flavio {
-  background-image: linear-gradient(180deg, #e9c21a 0%, #9fb83a 22%, #2f9a52 52%, #0f7a38);
+  background-image: linear-gradient(180deg, #f6d437 0%, #cfc22f 14%, #6cb84a 38%, #2f9a52 60%, #0f7a38 100%);
+  --ext-short:
+    0.010em 0.012em 0 #0a5829,
+    0.020em 0.023em 0 #094e25,
+    0.030em 0.035em 0 #084320,
+    0.040em 0.046em 0 #06381b;
+  --ext-full:
+    0.0075em 0.0086em 0 #0a5829,
+    0.0150em 0.0172em 0 #0a5528,
+    0.0225em 0.0259em 0 #0a5126,
+    0.0300em 0.0345em 0 #094e25,
+    0.0375em 0.0431em 0 #084a23,
+    0.0450em 0.0517em 0 #084622,
+    0.0525em 0.0604em 0 #084320,
+    0.0600em 0.0690em 0 #073f1e,
+    0.0675em 0.0776em 0 #063b1d,
+    0.0750em 0.0862em 0 #06381b,
+    0.0825em 0.0949em 0 #06341a,
+    0.0900em 0.1035em 0 #053018,
+    0.0975em 0.1121em 0 #042d17,
+    0.1050em 0.1207em 0 #042915,
+    0.1125em 0.1294em 0 #042614,
+    0.1200em 0.1380em 0 #032212;
+  --floor: 0.14em 0.3em 0.22em rgba(0, 24, 8, 0.3);
 }
 
 .name.flavio::before {
   color: #0b5c2b;
-  text-shadow: 1px 1px #0b5c2b, 2px 2px #0a5227, 3px 3px #07431f, 4px 4px #05381a;
+  text-shadow: var(--ext-short), var(--floor);
 }
 
-.name:hover,
+.name.flavio:hover::before {
+  text-shadow: var(--ext-full), var(--floor);
+}
+
 .stage.hover-lula .name.lula,
 .stage.hover-flavio .name.flavio {
-  transform: scale(1.06);
+  transform: var(--tilt) scale(1.06);
 }
 
-.name.lula:hover,
 .stage.hover-lula .name.lula {
-  filter: drop-shadow(0 0 18px rgba(232, 40, 63, 0.75)) brightness(1.15);
+  filter: drop-shadow(0 0 18px rgba(232, 40, 63, 0.7)) brightness(1.12);
 }
 
-.name.lula:hover::before,
-.stage.hover-lula .name.lula::before {
-  text-shadow: 1px 1px #a50f26, 2px 2px #96101f, 3px 3px #7d0a19, 4px 4px #6a0716, 0 0 22px rgba(232, 40, 63, 0.55);
-}
-
-.name.flavio:hover,
 .stage.hover-flavio .name.flavio {
-  filter: drop-shadow(0 0 18px rgba(47, 154, 82, 0.75)) brightness(1.15);
-}
-
-.name.flavio:hover::before,
-.stage.hover-flavio .name.flavio::before {
-  text-shadow: 1px 1px #0b5c2b, 2px 2px #0a5227, 3px 3px #07431f, 4px 4px #05381a, 0 0 22px rgba(47, 154, 82, 0.55);
+  filter: drop-shadow(0 0 18px rgba(47, 154, 82, 0.7)) brightness(1.12);
 }
 
 .micro {
