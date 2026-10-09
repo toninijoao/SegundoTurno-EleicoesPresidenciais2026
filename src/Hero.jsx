@@ -55,7 +55,8 @@ export default function Hero() {
 
         <div className="hero-question">
           <p className="question-text">
-            Pra quem <span className="question-br">vai seu apoio?</span>
+            <span className="q-line" data-t="Pra quem">Pra quem</span>
+            <span className="q-line" data-t="vai seu apoio?">vai seu apoio?</span>
           </p>
         </div>
 
