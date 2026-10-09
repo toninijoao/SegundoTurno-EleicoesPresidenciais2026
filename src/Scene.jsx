@@ -78,7 +78,7 @@ function Scene({ rootRef }) {
     // Lula: escapando sutilmente pela lateral esquerda
     const L = m ? { x: -0.12 * W, y: 0.1 * H } : { x: -0.06 * W - 0.47 * lw, y: yyL }
     // Flávio: um pouco maior e mais ao centro, porém ainda escapando pela lateral
-    const F = m ? { x: 0.10 * W, y: -0.2 * H } : { x: 0.045 * W + 0.32 * fw, y: yyF }
+    const F = m ? { x: 0.10 * W, y: -0.2 * H } : { x: 0.05 * W + 0.32 * fw, y: yyF }
 
     const it = []
     const add = (o) => it.push({ z: 0, op: 1, f: 0, rf: 0, renderOrder: 0, color: '#fff', ...o })
